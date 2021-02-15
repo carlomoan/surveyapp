@@ -1,0 +1,69 @@
+{% load static %}
+<aside class="menu-sidebar2 js-right-sidebar d-block d-lg-none">
+  <div class="logo">
+    <a href="#">
+      <img src="{% static "images/icon/logo-white.png" %}" alt="My Survey" />
+    </a>
+  </div>
+  {% if user.approval_status == 'a' %}
+  <div class="menu-sidebar2__content js-scrollbar2">
+    <div class="account2">
+      <div class="image img-cir img-120">
+        {% if user.photo %}
+        <img src="{{ user.photo.url  }}" />
+        {% else %} <img src="{% static "photo/no-image.png" %}"/> {% endif %}
+      </div>
+      <h4 class="name">{{ user.username }}</h4>
+      <a href="{% url 'accounts:logout'  %}">Sign out</a>
+    </div>
+    <nav class="navbar-sidebar2">
+      <ul class="list-unstyled navbar__list">
+        <li class="active has-sub">
+          <a class="js-arrow" href="#">
+            <i class="fas fa-tachometer-alt"></i>Dashboard
+            <span class="arrow">
+              <i class="fas fa-angle-down"></i>
+            </span>
+          </a>
+          <ul class="list-unstyled navbar__sub-list js-sub-list">
+            <li>
+              <a href="index.html">
+                <i class="fas fa-tachometer-alt"></i>Dashboard 1</a
+              >
+            </li>
+            <li>
+              <a href="index2.html">
+                <i class="fas fa-tachometer-alt"></i>Dashboard 2</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="{% url 'accounts:list'  %}">
+            <i class="fas fa-users"></i>Users</a
+          >
+        </li>
+
+        {% comment %}
+        <li>
+          <a href="{% url 'accounts:profile'  %}">
+            <i class="fas fa-users"></i>Profile</a
+          >
+        </li>
+        {% endcomment %}
+        <li>
+          <a href="{% url 'survey_project:list'  %}">
+            <i class="fas fa-suitcase"></i>Projects</a
+          >
+        </li>
+        <li>
+          <a href="{% url 'accounts:logout'  %}">
+            <i class="fas fa-chart-bar"></i>Inbox</a
+          >
+          <span class="inbox-num">3</span>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  {% endif %}
+</aside>

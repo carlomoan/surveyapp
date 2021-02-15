@@ -1,0 +1,47 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block title %}
+<title>User Profile page</title>
+{% endblock title %} 
+{% block breadcrumb %}
+<div class="au-breadcrumb-left">
+                                        <span class="au-breadcrumb-span">You are here:</span>
+                                        <ul class="list-unstyled list-inline au-breadcrumb__list">
+                                            <li class="list-inline-item active">
+                                                <a href="{% url 'accounts:list' %}"><iclass="fas fa-plus"></iclass=>User List page</a>
+                                            </li>
+                                            <li class="list-inline-item seprate">
+                                                <span>/<a href="{% url 'accounts:user_detail' user.id %}"><iclass="fas fa-plus"></iclass=>User Details page</a></span>
+                                            </li>
+                                            <li class="list-inline-item"></li>
+                                        </ul>
+                                    </div>
+{% endblock breadcrumb%}
+{% block content %}
+<div class="main-content">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <strong class="card-title mb-3">Profile Card</strong>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mx-auto d-block">
+                                        {% if object.photo %}
+                                            <img class="rounded-circle mx-auto d-block" src="{{ object.photo.url  }}" alt="Card image cap"/>
+                                        {% else %}
+                                            <img src="{% static "photo/no-image.png" %}" img class="rounded-circle mx-auto d-block"/>
+                                            {% endif %}
+                                            <h5 class="text-sm-center mt-2 mb-1">{{ object.firstname }} {{ object.middlename }} {{ object.lastname }}</h5>
+                                            <div class="location text-sm-center">
+                                                <i class="fa fa-map-marker"></i> {{ object.district }}, {{ object.region }}</div>
+                                        </div>
+                                        <hr>
+                                        <div class="card-text text-sm-center">
+                                            Username: {{ object.username}}<br/>
+                                            Email:  {{object.email}}<br/>
+                                            Mobile No: {{ object.mobile }}<br/>
+                                        </div>
+                                    </div>
+<br />
+{% endblock content %}

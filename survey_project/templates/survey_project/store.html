@@ -1,0 +1,121 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block title %}
+<title>Stored Items List</title>
+{% endblock title %}
+{% block breadcrumb %}
+<div class="au-breadcrumb-left">
+  <span class="au-breadcrumb-span">You are here:</span>
+    <ul class="list-unstyled list-inline au-breadcrumb__list">
+      <li class="list-inline-item active">
+        <a href="{% url 'accounts:home' %}"><iclass="fas fa-plus"></iclass=>Home</a>
+      </li>
+      <li class="list-inline-item seprate">
+        <span>/<a href="{% url '' %}"><iclass="fas fa-plus"></iclass=>Store info page</a></span>
+      </li>
+      <li class="list-inline-item"></li>
+    </ul>
+</div>
+{% endblock breadcrumb%}
+{% block content %}
+<div class="section__content section__content--p30">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xl-12">
+                            
+        <div class="row">
+          <div class="col-md-12">
+            <p>&nbsp;</p><br />
+            <!-- DATA TABLE -->
+            <h3 class="title-5 m-b-35">Stored Items List</h3>
+              <div class="table-data__tool">
+                <div class="table-data__tool-left">
+                  <div class="rs-select2--light rs-select2--md">
+                    <select class="js-select2" name="property">
+                      <option selected="selected">All Properties</option>
+                        <option value="">Option 1</option>
+                        <option value="">Option 2</option>
+                    </select>
+                    <div class="dropDownSelect2"></div>
+                  </div>
+                  <div class="rs-select2--light rs-select2--sm">
+                    <select class="js-select2" name="time">
+                      <option selected="selected">Today</option>
+                      <option value="">3 Days</option>
+                      <option value="">1 Week</option>
+                    </select>
+                  <div class="dropDownSelect2"></div>
+                </div>
+                <button class="au-btn-filter"><i class="zmdi zmdi-filter-list"></i>filters</button>
+              </div>
+            <div class="table-data__tool-right">
+             <a href="{% url 'survey_project:store_add' %}"><button class="au-btn--green au-btn--small"><i class="zmdi zmdi-plus"></i> New Item</button></a>
+               <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
+                <select class="js-select2" name="type">
+                  <option selected="selected">Export</option>
+                  <option value="">Option 1</option>
+                  <option value="">Option 2</option>
+                </select>
+              <div class="dropDownSelect2"></div>
+            </div>
+          </div>
+        </div>
+    
+        <div class="table-responsive table-responsive-data2">
+          <table class="table table-data2" id="store-table">
+            <thead>
+              <tr>
+                <th>
+                  <label class="au-checkbox"><input type="checkbox" /><span class="au-checkmark"></span></label>
+                </th>
+                <th>S/N</th>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Uploaded On</th>
+                <th>Issuer</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+             {% for item in object_list %}
+              <tr class="tr-shadow">
+                <td>
+                  <label class="au-checkbox"><input type="checkbox" /><span class="au-checkmark"></span></label>
+                </td>
+                <td>{{ forloop.counter}}</td>
+                <td>{{ item.item }}</td>
+                <td>{{ item.amount }}</td>
+                <td>{{ item.buy_time }}</td>
+                <td>{{ item.uploader }}</td>
+                <td>
+                  <div class="table-data-feature">
+                    <a href="{% url 'survey_project:store_detail' item.id %}"><button class="item" data-toggle="tooltip" data-placement="top" title="View"><i class="zmdi zmdi-eye"></i></button></a>
+                    <a href="{% url 'survey_project:store_edit' item.id %}"><button class="item" data-toggle="tooltip" data-placement="top" title="Edit"><i class="zmdi zmdi-edit"></i></button></a>
+                    <a href="{% url 'survey_project:store_delete' item.id %}"><button class="item" data-toggle="tooltip" data-placement="top" title="Delete"><i class="zmdi zmdi-delete"></i></button></a>
+                  </div>
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="7" class="text-center">No Stored Item Uploaded</td>
+              </tr>
+              {% endfor %}
+              <tr class="spacer"></tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- END DATA TABLE -->
+      </div>
+    </div>
+  </div>
+</div>             
+<div class="modal fade" id="addStoreModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>                                                                                                              
+{% endblock content %}
+
+{% block javascript %}
+  <script src="{% static 'js/actions.js' %}"></script>
+{% endblock javascript %}

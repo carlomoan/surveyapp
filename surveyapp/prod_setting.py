@@ -1,0 +1,12 @@
+from settings import *
+
+SECRET_KEY = os.environ['SECRET_KEY']
+
+CSRF_COOKIE_SECURE=True
+
+SESSION_COOKIE_SECURE=True
+
+DEBUG = TEMPLATE_DEBUG = False
+DATABASE_NAME = 'production'
+DATABASE_USER = 'shamenv'
+DATABASE_PASSWORD = 'SDMWells.21'
