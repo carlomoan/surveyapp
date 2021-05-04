@@ -27,7 +27,7 @@ SECRET_KEY = '=^k!9ee#kw!-j@z(5w6(52y%bd2rjaq*1_4jc4-ri&l&tua8n6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["sdmwells.co.tz"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
