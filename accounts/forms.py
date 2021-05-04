@@ -22,6 +22,10 @@ class Add_Ward(forms.ModelForm):
     fields = '__all__'
 
 
+class Add_Area(forms.ModelForm):
+    model = Street
+    fields = '__all__'
+
 class UserChangeForm(auth_forms.UserChangeForm):
     class Meta(auth_forms.UserChangeForm.Meta):
         model = User

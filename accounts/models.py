@@ -76,6 +76,13 @@ class Ward(models.Model):
     def __str__(self):
         return self.name
 
+class Street(models.Model):
+    name = models.CharField(max_length=70, blank=True, null=True)
+    ward = models.ForeignKey(Ward, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     GENDER = [

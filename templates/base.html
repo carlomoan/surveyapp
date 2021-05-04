@@ -2,181 +2,142 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    {% block head %} 
+    {% block meta %}
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui"
-    />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="description"
-      content="Admindek Bootstrap admin template made using Bootstrap 4 and it has huge amount of ready made feature, UI components, pages which completely fulfills any dashboard needs."
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="icon"
+      href="{% static 'production/images/favicon.ico' %}"
+      type="image/ico"
     />
-    <meta
-      name="keywords"
-      content="flat ui, admin Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app"
-    />
-    <meta name="author" content="colorlib" />
-    {% block title %}  
-    {% endblock title %}
+    {% endblock meta %} 
+    {% block title %} {% endblock title %} 
+    {% block stylesheet %}
 
-    <!-- Fontfaces CSS-->
+    <!-- Bootstrap -->
     <link
-      href="{% static 'css/font-face.css' %}"
+      href="{% static 'vendors/bootstrap/dist/css/bootstrap.min.css' %}"
       rel="stylesheet"
-      media="all"
     />
+    <!-- Font Awesome -->
     <link
-      href="{% static 'vendor/font-awesome-4.7/css/font-awesome.min.css' %}"
+      href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}"
       rel="stylesheet"
-      media="all"
     />
+    <!-- NProgress -->
     <link
-      href="{% static 'vendor/font-awesome-5/css/fontawesome-all.min.css' %}"
+      href="{% static 'vendors/nprogress/nprogress.css' %}"
       rel="stylesheet"
-      media="all"
     />
+    <!-- iCheck -->
     <link
-      href="{% static 'vendor/mdi-font/css/material-design-iconic-font.min.css' %}"
+      href="{% static 'vendors/iCheck/skins/flat/green.css' %}"
       rel="stylesheet"
-      media="all"
     />
 
-    <!-- Bootstrap CSS-->
+    <!-- bootstrap-progressbar -->
     <link
-      href="{% static 'vendor/bootstrap-4.1/bootstrap.min.css' %}"
+      href="{% static 'vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css' %}"
       rel="stylesheet"
-      media="all"
+    />
+    <!-- JQVMap -->
+    <link
+      href="{% static 'vendors/jqvmap/dist/jqvmap.min.css' %}"
+      rel="stylesheet"
+    />
+    <!-- bootstrap-daterangepicker -->
+    <link
+      href="{% static 'vendors/bootstrap-daterangepicker/daterangepicker.css' %}"
+      rel="stylesheet"
     />
 
-    <!-- Vendor CSS-->
-    <link
-      href="{% static 'vendor/animsition/animsition.min.css' %}"
-      rel="stylesheet"
-      media="all"
-    />
-    <link
-      href="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css' %}"
-      rel="stylesheet"
-      media="all"
-    />
-    <link
-      href="{% static 'vendor/wow/animate.css' %}"
-      rel="stylesheet"
-      media="all"
-    />
-    <link
-      href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}"
-      rel="stylesheet"
-      media="all"
-    />
-    <link
-      href="{% static 'vendor/slick/slick.css' %}"
-      rel="stylesheet"
-      media="all"
-    />
-    <link
-      href="{% static 'vendor/select2/select2.min.css' %}"
-      rel="stylesheet"
-      media="all"
-    />
-    <link
-      href="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.css' %}"
-      rel="stylesheet"
-      media="all"
-    />
+    <!-- Custom Theme Style -->
+    <link href="{% static 'build/css/custom.min.css' %}" rel="stylesheet" />
 
-    <!-- Main CSS-->
-    <link href="{% static 'css/theme.css' %}" rel="stylesheet" media="all" />
+    {% endblock stylesheet %} 
+    {% endblock head %}
   </head>
-  <body class="animsition">
-    <div class="page-wrapper">
-        <!-- MENU SIDEBAR-->
-        {% if user.is_authenticated%}
-        {% include "sidebar.html" %}
-        {% endif %}
-        <!-- END MENU SIDEBAR-->
+  <body class="{% block body_class %}nav-md {% endblock body_class %}">
+    {% block body %}
+    <div class="container body">
+      <div class="main_container">
 
-        <!-- PAGE CONTAINER-->
-        <div class="page-container2">
-            <!-- HEADER DESKTOP-->
-        {% include "header_desk.html" %}
-            <!-- END HEADER DESKTOP-->
+            <!-- sidebar menu -->
+            {% block sidebar %}
+            <div class="col-md-3 left_col menu_fixed {% block sidebar_class %} {% endblock sidebar_class %}">
+              {% include "layout/sidebar.html" %}
+             </div>
+            {% endblock sidebar %}
+            <!-- /sidebar menu -->
+        <!-- top navigation -->
+        {% block top_nav %}
+          <div class="top_nav"> 
+            {% include "layout/top_nav.html" %}
+          </div>
+        {% endblock top_nav %}
+        <!-- /top navigation -->
+          {% block messages %}
+        
+      {% endblock messages %}
+        <!-- page content -->
+        {% block content %}
+        
+        {% endblock content %}
+        <!-- /page content -->
 
-        <!-- MENU SIDEBAR RIGHT-->
-        {% if user.is_authenticated%}
-        {% include "right_side.html" %}
-        {% endif %}
-        <!-- END MENU SIDEBAR RIGHT-->
-
-            <!-- BREADCRUMB-->
-            {% if user.is_authenticated%}
-            <section class="au-breadcrumb m-t-75">
-                <div class="section__content section__content--p30">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="au-breadcrumb-content">
-                                {% block breadcrumb %}{% endblock breadcrumb %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            {% endif %}
-            <!-- END BREADCRUMB-->
-
-            <section>
-            {% block content %} {% endblock content %}
-            </section>
-
-            <section>
-                <div class="container-fluid">
-                    <div class="row">
-                            <div class="col-md-12">
-                                <div class="copyright">&nbsp;</div>
-                            </div>
-                    </div>
-                </div>
-            </section>
-            <!-- END PAGE CONTAINER-->
-        <div>
+        <!-- footer content -->
+        {% block footer %}
+        <footer>{% include "layout/footer.html" %}</footer>
+        {% endblock footer %}
+        <!-- /footer content -->
+      </div>
     </div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="copyright">
-                    <p>Copyright © 2020 I/0bitsSolution. All rights reserved. Template by <a href="https://digitalbitssolution.net">I/0bitsSolution</a>.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-            
-    <!-- Jquery JS-->
-    <script src="{% static 'vendor/jquery-3.2.1.min.js' %}"></script>
-    <!-- Bootstrap JS-->
-    <script src="{% static 'vendor/bootstrap-4.1/popper.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap-4.1/bootstrap.min.js' %}"></script>
-    <!-- Vendor JS       -->
-    <script src="{% static 'vendor/slick/slick.min.js' %}">
-    </script>
-    <script src="{% static 'vendor/wow/wow.min.js' %}"></script>
-    <script src="{% static 'vendor/animsition/animsition.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap-progressbar/bootstrap-progressbar.min.js' %}">
-    </script>
-    <script src="{% static 'vendor/counter-up/jquery.waypoints.min.js' %}"></script>
-    <script src="{% static 'vendor/counter-up/jquery.counterup.min.js' %}">
-    </script>
-    <script src="{% static 'vendor/circle-progress/circle-progress.min.js' %}"></script>
-    <script src="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
-    <script src="{% static 'vendor/chartjs/Chart.bundle.min.js' %}"></script>
-    <script src="{% static 'vendor/select2/select2.min.js' %}">
-    </script>
 
-    <!-- Main JS-->
-    <script src="{% static 'js/main.js' %}"></script>
-    {% block javascript %}
-    {% endblock javascript %}
-    </body>
+    {% block javascripts %}
+    <!-- jQuery -->
+    <script src="{% static 'vendors/jquery/dist/jquery.min.js' %}"></script>
+    <!-- Bootstrap -->
+    <script src="{% static 'vendors/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- FastClick -->
+    <script src="{% static 'vendors/fastclick/lib/fastclick.js' %}"></script>
+    <!-- NProgress -->
+    <script src="{% static 'vendors/nprogress/nprogress.js' %}"></script>
+    <!-- Chart.js -->
+    <script src="{% static 'vendors/Chart.js/dist/Chart.min.js' %}"></script>
+    <!-- gauge.js -->
+    <script src="{% static 'vendors/gauge.js/dist/gauge.min.js' %}"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="{% static 'vendors/bootstrap-progressbar/bootstrap-progressbar.min.js' %}"></script>
+    <!-- iCheck -->
+    <script src="{% static 'vendors/iCheck/icheck.min.js' %}"></script>
+    <!-- Skycons -->
+    <script src="{% static 'vendors/skycons/skycons.js' %}"></script>
+    <!-- Flot -->
+    <script src="{% static 'vendors/Flot/jquery.flot.js' %}"></script>
+    <script src="{% static 'vendors/Flot/jquery.flot.pie.js' %}"></script>
+    <script src="{% static 'vendors/Flot/jquery.flot.time.js' %}"></script>
+    <script src="{% static 'vendors/Flot/jquery.flot.stack.js' %}"></script>
+    <script src="{% static 'vendors/Flot/jquery.flot.resize.js' %}"></script>
+    <!-- Flot plugins -->
+    <script src="{% static 'vendors/flot.orderbars/js/jquery.flot.orderBars.js' %}"></script>
+    <script src="{% static 'vendors/flot-spline/js/jquery.flot.spline.min.js' %}"></script>
+    <script src="{% static 'vendors/flot.curvedlines/curvedLines.js' %}"></script>
+    <!-- DateJS -->
+    <script src="{% static 'vendors/DateJS/build/date.js' %}"></script>
+    <!-- JQVMap -->
+    <script src="{% static 'vendors/jqvmap/dist/jquery.vmap.js' %}"></script>
+    <script src="{% static 'vendors/jqvmap/dist/maps/jquery.vmap.world.js' %}"></script>
+    <script src="{% static 'vendors/jqvmap/examples/js/jquery.vmap.sampledata.js' %}"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="{% static 'vendors/moment/min/moment.min.js' %}"></script>
+    <script src="{% static 'vendors/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="{% static 'build/js/custom.min.js' %}"></script>
+    {% endblock javascripts %} {% endblock body %}
+  </body>
 </html>

@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.template.loader import render_to_string
 from django.views import generic
-from django.views.generic import ListView, DetailView, UpdateView
+from django.views.generic import *
 
 
 # Create your views here
@@ -88,7 +88,7 @@ def permission_error(request):
     return HttpResponse('You don\'t have right permission to access this page.')
 
 
-@user_passes_test(user_is_staff, login_url='account:login')
+@user_passes_test(user_is_staff, login_url='accounts:login')
 def dashboard(request):
     total_Users = User.objects.count()
     total_region = Region.objects.count()
@@ -145,7 +145,7 @@ def delete_user(request, pk, template_name='accounts/user_list.html'):
 
 class UserDetailView(DetailView):
     model = User
-    template_name = "accounts/user_list.html"
+    template_name = "accounts/user_detail.html"
 
 
 def user_form(request):
@@ -173,13 +173,43 @@ def user_delete(request, username):
     return render(request, "accounts/user_list.html")
 
 
-def new_region(request):
-    form = Add_Region(request.POST or None)
+def save_region_form(request,  form, template_name):
+    data = dict()
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            data['form_is_valid'] = True
+            mikoa = Region.objects.all()
+            data['html_mikoa_list'] = render_to_string('accounts/regions.html', {
+                'mikoa': mikoa
+            })
+        else:
+            data['form_is_valid'] = False
+    context = {'form': form}
+    data['html_form'] = render_to_string(template_name, context, request=request)
+    return JsonResponse(data)
+
+    ''' form = Add_Region(request.POST or None)
     mikoa = Region.objects.all()
     if form.is_valid():
         form.save()
         return ("accounts/places_list.html")
-    return render(request, "accounts/add_region.html", {'form': form, 'regions': mikoa})
+    return render(request, "accounts/add_region.html", {'form': form, 'regions': mikoa}) '''
+
+
+def region_create(request):
+    if request.method == 'POST':
+        form = Add_Region(request.POST)
+    else:
+        form = Add_Region()
+    return save_region_form(request, form, 'accounts/regions.html')
+
+class Region_List(ListView):
+    model = Region
+    template_name = "accounts/regions.html"
+
+    def get_queryset(self):
+        return Region.objects.all()
 
 
 def places(request):

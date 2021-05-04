@@ -3,23 +3,61 @@
 {% load crispy_forms_tags %} 
 {% block title %}
 <title>Login Page</title>
-{% endblock title %} {% block content %}
-<div class="login-wrap">
-  <div class="login-content">
-    <div class="login-logo">
-      <a href="#">
-        <img src="{% static "images/icon/systelogo1.jpg" %}" alt="My survey">
-      </a>
-      <div class="location text-sm-center">Login Page</div>
-    </div>
-    <div class="login-form">
-      <form action="" method="post">
-        {% csrf_token %} {{ form|crispy }}
-        <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">
-          Login
-        </button>
-      </form>
+{% endblock title %} 
+{% block stylesheets %}
+  {{ block.super }}
+  <!-- Animate.css -->
+  <link href="/static/vendors/animate.css/animate.min.css" rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block body_class %}login{% endblock body_class %}
+
+{% block body %}
+<body class="login">
+  <div>
+    <div class="login_wrapper">
+      <div class="animate form login_form">
+        <section class="login_content">
+          <form action="" method="post">
+            <h1>Login Form</h1>
+            <div>
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+              <strong>{{ message }}</strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            {% endfor %}
+          {% endif %}
+              <hr />
+             {% csrf_token %}
+             {{ form|crispy }}</div>
+            <div>
+            <button class="btn btn-default submit" type="submit">Log in </button>
+              <a class="reset_pass" href="#">Lost your password?</a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="separator">
+              
+              <div class="clearfix"></div>
+              <br />
+
+              <div>
+                <h1><i class="fa fa-paw"></i> SDMwells!</h1>
+                <p>
+                  ©2021 All Rights Reserved. SDMwells Online Wells Projects Management and Information System(SOWPMIS). Privacy and Terms
+                </p>
+              </div>
+            </div>
+          </form>
+        </section>
+      </div>
     </div>
   </div>
-</div>
-{% endblock content %}
+</body>
+
+{% endblock body %}

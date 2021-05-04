@@ -1,73 +1,78 @@
-{% extends 'base.html' %} 
-{% load static %} 
-{% block title %}
+{% extends 'base.html' %} {% load static %} {% block title %}
 <title>Homepage</title>
-{% endblock title %} 
-{% block breadcrumb %}
-<div class="au-breadcrumb-left">
-  <span class="au-breadcrumb-span">You are here:</span>
-    <ul class="list-unstyled list-inline au-breadcrumb__list">
-      <li class="list-inline-item active">
-        <a href="{% url 'accounts:home' %}"><iclass="fas fa-plus"></iclass=>Homepage</a>
-      </li>
-        <li class="list-inline-item seprate">
-      <span>/</span>
-        </li>
-          <li class="list-inline-item"></li>
-        </ul>
-</div>
-{% endblock breadcrumb%}
-{% block content %}
-<div class="main-content">
-  <div class="section__content section__content--p30">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-body">
-              <div class="mx-auto d-block card-header">
-                <img
-                  class="rounded-circle mx-auto d-block"
-                  src="{% static 'images/icon/systelogo.png' %}"
-                  alt="Card image cap"
-                />
-                <h5 class="text-sm-center mt-2 mb-1">SDMwells Online Wells Projects Management and Information System(SOWPMIS)</h5>
-                <div class="location text-sm-center">Homepage</div>
-              </div>
-              {% if messages %}
-            {% for message in messages %}
-            <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
-              <strong>{{ message }}</strong>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            {% endfor %}
-          {% endif %}
-              <hr />
-              <div class="card-text text-sm-center">
-                {% if user.is_authenticated and user.is_superuser%} Welcome
-                Administrator {{ user.username}}<br />
-                {% elif user.is_authenticated and user.is_staff%} Welcome Staff
-                {{ user.username}}<br />
-                {% elif user.is_authenticated %} Welcome User 
-                {{user.username}}<br />
-                {% else %}
-                <p>
-                  Please! If you are registered you can
-                  <a href="{% url 'accounts:login'  %}"><strong>Login here</strong></a>
-                </p>
-                <p>Otherwise, You must contact with An Administrator.</p>
-                {% endif %}
-              </div>
-            </div>
-            <div class="card-footer text-sm-center">
-              <strong class="card-title mb-3">You are Welcome</strong>
-            </div>
+{% endblock title %} {% block stylesheets %} {{ block.super }}
+<!-- Animate.css -->
+<link href="/static/vendors/animate.css/animate.min.css" rel="stylesheet" />
+{% endblock stylesheets %} {% block body_class %}login{% endblock body_class %}
+{% block body %}
+
+<div class="clearfix"></div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="mx-auto d-block card-header">
+            <img
+              class="rounded-circle mx-auto d-block"
+              src="{% static 'production/images/icon/systelogo.png' %}"
+              alt="Card image cap"
+            />
+            <h5 class="text-sm-center mt-2 mb-1">
+              SDMwells Online Wells Projects Management and Information
+              System(SOWPMIS)
+            </h5>
+            <div class="location text-sm-center">Homepage</div>
           </div>
+          {% block messages %} {% if messages %} {% for message in messages %}
+          <div
+            class="alert {{ message.tags }} alert-dismissible alert-success fade show"
+            role="alert"
+          >
+            <strong>{{ message }}</strong>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="alert"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% endfor %} {% endif %}
+          <hr />
+          {% endblock messages %}
+
+          <div class="card-text text-sm-center">
+            {% if user.is_authenticated and user.is_superuser%} Welcome
+            Administrator {{ user.username}}<br />
+            <p>
+              <a href="{% url 'accounts:logout'  %}"><strong>Logout</strong></a>
+            </p>
+            {% elif user.is_authenticated and user.is_staff%} Welcome Staff {{
+            user.username}}<br />
+            {% elif user.is_authenticated %} Welcome User
+            <p>
+              <a href="{% url 'accounts:logout'  %}"><strong>Logout</strong></a>
+            </p>
+            {{user.username}}<br />
+            {% else %}
+            <p>
+              Please! If you are registered you can
+              <a href="{% url 'accounts:login'  %}"
+                ><strong>Login here</strong></a
+              >
+            </p>
+            <p>Otherwise, You must contact with An Administrator.</p>
+            {% endif %}
+          </div>
+        </div>
+        <div class="card-footer text-sm-center">
+          <strong class="card-title mb-3">You are Welcome</strong>
         </div>
       </div>
     </div>
   </div>
+  {% endblock body %}
 </div>
-{% endblock content %}
