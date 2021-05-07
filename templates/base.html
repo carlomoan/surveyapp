@@ -138,6 +138,12 @@
 
     <!-- Custom Theme Scripts -->
     <script src="{% static 'build/js/custom.min.js' %}"></script>
-    {% endblock javascripts %} {% endblock body %}
+
+    <!-- Modal Form -->
+    <script src="{% static 'production/js/jquery.bootstrap.modal.forms.min.js' %}"></script>
+
+    {% endblock javascripts %} 
+    {% block extrascripts %}{% endblock extrascripts %}
+    {% endblock body %}
   </body>
 </html>

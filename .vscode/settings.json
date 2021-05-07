@@ -1,5 +1,8 @@
 {
     "python.pythonPath": "C:\\Users\\Andrew\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe",
     "python.formatting.provider": "autopep8",
-    "restructuredtext.languageServer.disabled": true
+    "restructuredtext.languageServer.disabled": true,
+    "githubPullRequests.remotes": [
+        "origin"
+    ]
 }

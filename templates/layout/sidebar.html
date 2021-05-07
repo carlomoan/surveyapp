@@ -1,9 +1,7 @@
 {% load static %}
 <div class="left_col scroll-view">
   <div class="navbar nav_title" style="border: 0">
-    <a href="index.html" class="site_title"
-      ><i class="fa fa-paw"></i> <span>SDMwells!</span></a
-    >
+    <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>SDMwells!</span></a>
   </div>
 
   <div class="clearfix"></div>
@@ -11,15 +9,19 @@
   <!-- menu profile quick info -->
   <div class="profile clearfix">
     <div class="profile_pic">
+    {% if user.photo %}
       <img
-        src="{% static 'images/img.jpg' %}"
+        src="{{ user.photo.url  }}""
         alt="..."
         class="img-circle profile_img"
       />
+      {% else %} 
+      <img src="{% static "photo/no-image.png" %}"/> 
+      {% endif %}
     </div>
     <div class="profile_info">
       <span>Welcome,</span>
-      <h2>John Doe</h2>
+      <h2>{{ user.get_full_name }}</h2>
     </div>
   </div>
   <!-- /menu profile quick info -->

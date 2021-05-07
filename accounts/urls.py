@@ -10,8 +10,11 @@ urlpatterns = [
     path('logout', views.logout, name='logout'),
     path('users', views.UserListView.as_view(), name='list'),
     path('user/add', views.user_form, name='add'),
-    path('region', views.region_create, name='region'),
-    path('region_list', views.Region_List.as_view(), name='region_list'),
+    path('region/add', views.RegionCreate.as_view(), name='add_region'),
+    path('region/list', views.RegionList.as_view(), name='region_list'),
+    path('region/update/<int:pk>', views.RegionUpdate.as_view(), name='update_region'),
+    path('region/read/<int:pk>', views.RegionDetail.as_view(), name='read_region'),
+    path('region/delete/<int:pk>', views.RegionDelete.as_view(), name='delete_region'),
     path('user/profile_complete', views.profile_complete, name='profile_complete'),
     path('user/edit/<int:pk>', views.edit_user, name='edit'),
     path('user/delete/<int:pk>', views.user_delete, name='delete'),
@@ -20,9 +23,4 @@ urlpatterns = [
     path('user/detail/<int:pk>', views.UserDetailView.as_view(), name='user_detail'),
     path('user/approval/<int:pk>/', views.user_approval, name='user_approval'),
 
-
-    path('places_list', views.places, name='profile_list'),
-
-
-    path('ajax/load_districts', views.load_places, name='ajax_load_cities')
 ]

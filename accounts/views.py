@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from .forms import *
 from .models import *
 from django.urls import reverse, reverse_lazy
+from django.utils.decorators import method_decorator
 from django.contrib.auth import (
     authenticate, login as auth_login, logout as auth_logout)
 from django.http import HttpResponse, JsonResponse
@@ -173,43 +174,70 @@ def user_delete(request, username):
     return render(request, "accounts/user_list.html")
 
 
-def save_region_form(request,  form, template_name):
-    data = dict()
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-            data['form_is_valid'] = True
-            mikoa = Region.objects.all()
-            data['html_mikoa_list'] = render_to_string('accounts/regions.html', {
-                'mikoa': mikoa
-            })
-        else:
-            data['form_is_valid'] = False
-    context = {'form': form}
-    data['html_form'] = render_to_string(template_name, context, request=request)
-    return JsonResponse(data)
-
-    ''' form = Add_Region(request.POST or None)
+def create_region(request):
+    form = Add_Region(request.POST or None)
     mikoa = Region.objects.all()
     if form.is_valid():
         form.save()
         return ("accounts/places_list.html")
-    return render(request, "accounts/add_region.html", {'form': form, 'regions': mikoa}) '''
+    return render(request, "accounts/add_region.html", {'form': form, 'regions': mikoa})
+
+class  RegionList(View):
+    def  get(self, request):
+        regions =  list(Region.objects.all().values())
+        data =  dict()
+        data['regions'] = regions
+        return JsonResponse(data)
+
+class  RegionDetail(View):
+    def  get(self, request, pk):
+        region = get_object_or_404(Room, pk=pk)
+        data =  dict()
+        data['region'] = model_to_dict(region)
+        return JsonResponse(data)
+
+@method_decorator(csrf_exempt, name='dispatch')
+class  RegionCreate(CreateView):
+    def  post(self, request):
+        data =  dict()
+        form = RoomForm(request.POST)
+        if form.is_valid():
+            region = form.save()
+            data['region'] = model_to_dict(region)
+        else:
+            data['error'] =  "form not valid!"
+        return JsonResponse(data)
+
+class  RegionUpdate(View):
+    def  post(self, request, pk):
+        data =  dict()
+        region = Room.objects.get(pk=pk)
+        form = RoomForm(instance=region, data=request.POST)
+        if form.is_valid():
+            region = form.save()
+            data['region'] = model_to_dict(region)
+        else:
+            data['error'] =  "form not valid!"
+        return JsonResponse(data)
+
+class  RegionDelete(View):
+    def  post(self, request, pk):
+        data =  dict()
+        region = Region.objects.get(pk=pk)
+        if region:
+            region.delete()
+            data['message'] =  "Region deleted!"
+        else:
+            data['message'] =  "Error!"
+        return JsonResponse(data)
 
 
-def region_create(request):
-    if request.method == 'POST':
-        form = Add_Region(request.POST)
-    else:
-        form = Add_Region()
-    return save_region_form(request, form, 'accounts/regions.html')
-
-class Region_List(ListView):
+''' class Region_List(ListView):
     model = Region
     template_name = "accounts/regions.html"
 
     def get_queryset(self):
-        return Region.objects.all()
+        return Region.objects.all() '''
 
 
 def places(request):
