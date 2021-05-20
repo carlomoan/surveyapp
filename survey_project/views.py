@@ -16,15 +16,16 @@ def projects(request):
 
 def project_create(request):
     if request.method == 'POST':
-        new_project_form = Add_ProjectForm(request.POST)
-        if new_project_form.is_valid:
-            new_project = new_project_form.save(commit=False)
-            new_project.recorded_by = request.accounts.user
+        form = Add_ProjectForm(request.POST)
+        if form.is_valid:
+            new_project = form.save(commit=False)
+            new_project.author = self.request.user
             new_project.save()
             return redirect('survey_project:list')
-    new_project_form = Add_ProjectForm()
-    context = {'new_project_form': new_project_form}
+    form = Add_ProjectForm()
+    context = {'form': form}
     return render(request, 'survey_project/project_add.html', context)
+
 
 def edit_project(request, pk, template_name='survey_project/project_edit.html'):
     project = get_object_or_404(SurveyProject, pk=pk)

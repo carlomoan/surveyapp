@@ -1,8 +1,8 @@
-{% extends 'base.html' %} 
+{% extends "base.html" %}
 {% load static %} 
-{% load crispy_forms_tags %} 
+{% load crispy_forms_tags %}
 {% block title %}
-<title>Add Equipment</title>
+<title>Delete District</title>
 {% endblock title %} 
 {% block stylesheets %}
 {{ block.super }}
@@ -27,7 +27,7 @@
     <div class="col-md-8 col-sm-12">
       <div class="x_panel">
         <div class="x_title">
-          <h2>Add New Equipment</h2>
+          <h2>Delete district</h2>
           <ul class="nav navbar-right panel_toolbox">
             <li>
               <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -46,26 +46,24 @@
           </ul>
           <div class="clearfix"></div>
         </div>
-        <div class="x_content">
-          <br />
-        <form
-          action="{{ request.path }}"
-          method="post"
-          enctype="multipart/form-data"
-        >
-          {% csrf_token %} 
-          {{ form|crispy }}
-          <div class="ln_solid"></div>
-            <div class="item form-group">
-              <div class="col-md-6 col-sm-6 offset-md-3">
-                <button class="btn btn-primary" type="button">Cancel</button>
-                <button class="btn btn-primary" type="reset">Reset</button>
-                <button type="submit" class="btn btn-success">Add New Equipment</button>
-              </div>
-            </div>
-          </form>
+          <div class="x_content">
+    <form method="post">
+        
+        {% csrf_token %}
+        
+        <fieldset class="form-group">
+            <div style="color:#ea2088; font-style: bold; font-size: 3rem; border-bottom: 1px solid white;">Delete District</div> <br>
+            <h2>Are you sure you want to delete the district named "{{ object.name }}"?</h2>
+        </fieldset>
+
+        <div class="form-group">  
+            <button type="submit" class="btn ghost-red">Yes, Delete</button>
+            <a href="{% url 'accounts:district_list' %}" class="btn ghost-button">Cancel</a>
         </div>
-      </div>
+        
+    </form>
+    </div>
+ </div>
     </div>
   </div>
 </div>

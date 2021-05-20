@@ -13,18 +13,21 @@ class Add_Region(forms.ModelForm):
 
 
 class Add_District(forms.ModelForm):
-    model = District
-    fields = '__all__'
+    class Meta:
+        model = District
+        fields = '__all__'
 
 
 class Add_Ward(forms.ModelForm):
-    model = Ward
-    fields = '__all__'
+    class Meta:
+        model = Ward
+        fields = '__all__'
 
 
 class Add_Area(forms.ModelForm):
-    model = Street
-    fields = '__all__'
+    class Meta:
+        model = Street
+        fields = '__all__'
 
 class UserChangeForm(auth_forms.UserChangeForm):
     class Meta(auth_forms.UserChangeForm.Meta):

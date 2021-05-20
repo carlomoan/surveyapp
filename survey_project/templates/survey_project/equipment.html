@@ -3,67 +3,85 @@
 {% block title %}
 <title>Equipments List</title>
 {% endblock title %}
-{% block breadcrumb %}
-<div class="au-breadcrumb-left">
-  <span class="au-breadcrumb-span">You are here:</span>
-    <ul class="list-unstyled list-inline au-breadcrumb__list">
-      <li class="list-inline-item active">
-        <a href="{% url 'accounts:home' %}"><iclass="fas fa-plus"></iclass=>Home</a>
-      </li>
-      <li class="list-inline-item seprate">
-        <span>/<a href="{% url 'accounts:list' %}"><iclass="fas fa-plus"></iclass=>Equipment list page</a></span>
-      </li>
-      <li class="list-inline-item"></li>
-    </ul>
-</div>
-{% endblock breadcrumb%}
+{% block stylesheets %} 
+{{ block.super }}
+<link
+  href="{% static 'vendors/datatables.net-bs/css/dataTables.bootstrap.min.css' %}"
+  rel="stylesheet"
+/>
+<link
+  href="{% static 'vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css' %}"
+  rel="stylesheet"
+/>
+<link
+  href="{% static 'vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css' %}"
+  rel="stylesheet"
+/>
+<link
+  href="{% static 'vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css' %}"
+  rel="stylesheet"
+/>
+<link
+  href="{% static 'vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css' %}"
+  rel="stylesheet"
+/>
+{% endblock stylesheets %} 
 {% block content %}
-<div class="section__content section__content--p30">
-  <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-xl-12">
-                            
-<div class="row">
-  <div class="col-md-12">
-  <p>&nbsp;</p><br />
-    <!-- DATA TABLE -->
-    <h3 class="title-5 m-b-35">Equipments List</h3>
-    <div class="table-data__tool">
-      <div class="table-data__tool-left">
-        <div class="rs-select2--light rs-select2--md">
-          <select class="js-select2" name="property">
-            <option selected="selected">All Properties</option>
-            <option value="">Option 1</option>
-            <option value="">Option 2</option>
-          </select>
-          <div class="dropDownSelect2"></div>
-        </div>
-        <div class="rs-select2--light rs-select2--sm">
-          <select class="js-select2" name="time">
-            <option selected="selected">Today</option>
-            <option value="">3 Days</option>
-            <option value="">1 Week</option>
-          </select>
-          <div class="dropDownSelect2"></div>
-        </div>
-        <button class="au-btn-filter">
-          <i class="zmdi zmdi-filter-list"></i>filters
-        </button>
+<div class="right_col" role="main">
+  <div class="">
+    <div class="page-title">
+      <div class="title_left">
+        <h3>Users Accounts List</h3>
+
       </div>
-      <div class="table-data__tool-right">
-        <a href="{% url 'survey_project:equipment_add' %}"><button class="au-btn--green au-btn--small"><i class="zmdi zmdi-plus"></i> New Item</button></a>
-        <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
-          <select class="js-select2" name="type">
-            <option selected="selected">Export</option>
-            <option value="">Option 1</option>
-            <option value="">Option 2</option>
-          </select>
-          <div class="dropDownSelect2"></div>
+
+      <div class="title_right">
+        <div
+          class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search"
+        >
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search for..."
+            />
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button">Go!</button>
+            </span>
+          </div>
         </div>
       </div>
     </div>
-    
-    <div class="table-responsive table-responsive-data2">
+    <div class="clearfix"></div>
+
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+          <a href="{% url 'survey_project:equipment_add' %}">
+            <button type="button" class="btn btn-success btn-sm" id="create-user" data-toggle="modal">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+              Add New
+            </button></a>
+            <ul class="nav navbar-right panel_toolbox">
+              <li>
+                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" ><i class="fa fa-wrench"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Settings 1</a></li>
+                  <li><a href="#">Settings 2</a></li>
+                </ul>
+              </li>
+              <li>
+                <a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <p class="text-muted font-13 m-b-30"></p>
       <table class="table table-data2">
         <thead>
           <tr>

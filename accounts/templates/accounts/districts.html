@@ -1,37 +1,35 @@
-{% extends 'base.html' %} 
-{% load static %} 
+{% extends 'base.html' %}
+{% load static %}
 {% block title %}
-<title>User Lists</title>
-{% endblock title %} 
-{% block stylesheets %} 
+<title>Admin Dashboard | Districts List</title>
+{% endblock title %}
+{% block stylesheets %}
 {{ block.super }}
-<link
-  href="{% static 'vendors/datatables.net-bs/css/dataTables.bootstrap.min.css' %}"
-  rel="stylesheet"
-/>
-<link
-  href="{% static 'vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css' %}"
-  rel="stylesheet"
-/>
-<link
-  href="{% static 'vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css' %}"
-  rel="stylesheet"
-/>
-<link
-  href="{% static 'vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css' %}"
-  rel="stylesheet"
-/>
-<link
-  href="{% static 'vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css' %}"
-  rel="stylesheet"
-/>
-{% endblock stylesheets %} 
+<link href="{% static 'vendors/datatables.net-bs/css/dataTables.bootstrap.min.css' %}" rel="stylesheet" />
+<link href="{% static 'vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css' %}" rel="stylesheet" />
+<link href="{% static 'vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css' %}" rel="stylesheet" />
+<link href="{% static 'vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css' %}" rel="stylesheet" />
+<link href="{% static 'vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css' %}" rel="stylesheet" />
+{% endblock stylesheets %}
+{% block messages %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert {{ message.tags }} alert-dismissible alert-success fade show" role="alert">
+  <strong>{{ message }}</strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endfor %}
+{% endif %}
+<hr />
+{% endblock messages %}
 {% block content %}
 <div class="right_col" role="main">
   <div class="">
     <div class="page-title">
       <div class="title_left">
-        <h3>Users Accounts List</h3>
+        <h3>District List</h3>
 
       </div>
 
@@ -58,7 +56,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           <div class="x_title">
-          <a href="{% url 'accounts:add' %}">
+          <a href="{% url 'accounts:add_district' %}">
             <button type="button" class="btn btn-success btn-sm" id="create-user" data-toggle="modal">
               <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
               Add New
@@ -82,8 +80,7 @@
           </div>
           <div class="x_content">
             <p class="text-muted font-13 m-b-30"></p>
-
-            <table
+<table
               id="datatable-responsive"
               class="table table-striped table-bordered dt-responsive nowrap"
               cellspacing="0"
@@ -98,15 +95,14 @@
                     </label>
                   </th>
                   <th>S/N</th>
-                  <th>Username</th>
-                  <th>Fullname</th>
-                  <th>Roles</th>
-                  <th>Mobile</th>
+                  <th>Postcode</th>
+                  <th>Name</th>
+                  <th>Region</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                {% for person in object_list %}
+                {% for district in object_list %}
                 <tr class="tr-shadow">
                   <td>
                     <label class="au-checkbox">
@@ -116,16 +112,15 @@
                   </td>
                   <td>{{ forloop.counter}}</td>
                   <td>
-                    <a href="{% url 'accounts:user_detail' person.id %}"
-                      >{{ person.username }}</a
+                    <a href="{% url 'accounts:read_district' district.id %}"
+                      >{{ district.postcode }}</a
                     >
                   </td>
-                  <td>{{ person.get_full_name }}</td>
-                  <td>{{ person.user_roles }}</td>
-                  <td>{{ person.mobile }}</td>
+                  <td>{{ district.name }}</td>
+                  <td>{{ district.region_id }}</td>
                   <td>
                     <div class="table-data-feature">
-                      <a href="{% url 'accounts:user_detail' person.id %}"
+                      <a href="{% url 'accounts:read_district' district.id %}"
                         ><button type="button" class="btn btn-dark btn-sm">
                           <span
                             class="glyphicon glyphicon-eye-open"
@@ -134,7 +129,7 @@
                           View
                         </button></a
                       >
-                      <a href="{% url 'accounts:update' person.id %}"
+                      <a href="{% url 'accounts:update_district' district.id %}"
                         ><button type="button" class="btn btn-warning btn-sm">
                           <span
                             class="glyphicon glyphicon-pencil"
@@ -143,7 +138,7 @@
                           Edit
                         </button></a
                       >
-                      <a href="{% url 'accounts:delete' person.id %}"
+                      <a href="{% url 'accounts:delete_district' district.id %}"
                         ><button type="button" class="btn btn-danger btn-sm">
                           <span
                             class="glyphicon glyphicon-remove"
@@ -157,20 +152,20 @@
                 </tr>
                 {% empty %}
                 <tr>
-                  <td colspan="7" class="text-center">No User Account</td>
+                  <td colspan="7" class="text-center">No District Entered</td>
                 </tr>
                 {% endfor %}
                 <tr class="spacer"></tr>
               </tbody>
             </table>
-          </div>
+            </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-{% endblock content %} 
-{% block javascripts %} 
+{% endblock content %}
+{% block javascripts %}
 {{ block.super }}
 <!-- Datatables -->
 <script src="{% static 'vendors/datatables.net/js/jquery.dataTables.min.js' %}"></script>
@@ -189,3 +184,6 @@
 <script src="{% static 'vendors/pdfmake/build/pdfmake.min.js' %}"></script>
 <script src="{% static 'vendors/pdfmake/build/vfs_fonts.js' %}"></script>
 {% endblock javascripts %}
+{% block extrascripts %}
+<script src="{{ STATIC_URL }}production/js/jquery.bootstrap.modal.forms.min.js"></script>
+{% endblock extrascripts %}

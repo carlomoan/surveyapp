@@ -4,9 +4,10 @@ from .models import *
 
 
 class Add_ProjectForm(forms.ModelForm):
+    author = forms.CharField(widget = forms.HiddenInput(), required = False)
     class Meta:
         model = SurveyProject
-        fields = ['author', 'site_No', 'Region', 'District', 'Ward', 'Location', 'Current_source', 'Distance_source',
+        fields = ['site_No', 'Region', 'District', 'Ward', 'Location', 'Current_source', 'Distance_source',
                   'Affected_people', 'Picture', 'Video', 'Attachment']
         labels = {
             'Current_source': 'Current Source of water',
@@ -16,6 +17,7 @@ class Add_ProjectForm(forms.ModelForm):
             'Video': 'Current source Video',
             'Attachment': 'Application Letter'
         }
+        
 
 
 class WellInfoForm(forms.ModelForm):

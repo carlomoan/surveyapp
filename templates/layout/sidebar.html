@@ -9,19 +9,16 @@
   <!-- menu profile quick info -->
   <div class="profile clearfix">
     <div class="profile_pic">
-    {% if user.photo %}
-      <img
-        src="{{ user.photo.url  }}""
-        alt="..."
-        class="img-circle profile_img"
-      />
-      {% else %} 
-      <img src="{% static "photo/no-image.png" %}"/> 
+      {% if request.user.photo %}
+      <img src="{{ request.user.photo.url  }}""
+        alt=" ..." class="img-circle profile_img" />
+      {% else %}
+      <img src="{% static 'photo/no-image.png' %}" />
       {% endif %}
     </div>
     <div class="profile_info">
       <span>Welcome,</span>
-      <h2>{{ user.get_full_name }}</h2>
+      <h2>{{ request.user.get_full_name }}</h2>
     </div>
   </div>
   <!-- /menu profile quick info -->
@@ -34,15 +31,11 @@
       <h3>General</h3>
       <ul class="nav side-menu">
         <li>
-          <a href="{% url 'accounts:dashboard'  %}"
-            ><i class="fa fa-home"></i> Home</a
-          >
+          <a href="{% url 'accounts:dashboard'  %}"><i class="fa fa-home"></i> Home</a>
         </li>
         <li>
-          <a
-            ><i class="fa fa-edit"></i> User Accounts
-            <span class="fa fa-chevron-down"></span
-          ></a>
+          <a><i class="fa fa-edit"></i> User Accounts
+            <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             <li><a href="{% url 'accounts:list'  %}">All Accounts</a></li>
             <li><a href="">Approved </a></li>
@@ -51,15 +44,13 @@
           </ul>
         </li>
         <li>
-          <a href="javascript:void(0)"
-            ><i class="fa fa-map-marker"></i> Manage Locations
-            <span class="fa fa-chevron-down"></span
-          ></a>
+          <a href="javascript:void(0)"><i class="fa fa-map-marker"></i> Manage Locations
+            <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             <li><a href="{% url 'accounts:region_list'  %}">Regions</a></li>
-            <li><a href="">Districts </a></li>
-            <li><a href="">Wards</a></li>
-            <li><a href="">Streets</a></li>
+            <li><a href="{% url 'accounts:district_list'  %}">Districts </a></li>
+            <li><a href="{% url 'accounts:ward_list'  %}">Wards</a></li>
+            <li><a href="{% url 'accounts:street_list'  %}">Streets</a></li>
           </ul>
         </li>
       </ul>
@@ -68,27 +59,21 @@
       <h3>Wells Projects</h3>
       <ul class="nav side-menu">
         <li>
-          <a
-            ><i class="fa fa-bug"></i> Projects
-            <span class="fa fa-chevron-down"></span
-          ></a>
+          <a><i class="fa fa-bug"></i> Projects
+            <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
-            <li><a href="e_commerce.html">Finished Wells</a></li>
-            <li><a href="projects.html">On-Progress</a></li>
-            <li><a href="project_detail.html">Planned</a></li>
-            <li><a href="contacts.html">All</a></li>
+            <li><a href="{% url 'survey_project:development_info_list'  %}">Finished Wells</a></li>
+            <li><a href="{% url 'survey_project:list'  %}">On-Progress</a></li>
+            <li><a href="{% url 'survey_project:development_info_list'  %}">Planned</a></li>
+            <li><a href="{% url 'survey_project:list'  %}">All</a></li>
           </ul>
         </li>
         <li>
-          <a
-            ><i class="fa fa-bug"></i> Store Info
-            <span class="fa fa-chevron-down"></span
-          ></a>
+          <a><i class="fa fa-bug"></i> Store Info
+            <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
-            <li><a href="e_commerce.html">Available Equipments</a></li>
-            <li><a href="projects.html">On-Progress</a></li>
-            <li><a href="project_detail.html">Planned</a></li>
-            <li><a href="contacts.html">All</a></li>
+            <li><a href="{% url 'survey_project:store_list'  %}">Stored Equipments</a></li>
+            <li><a href="projects.html">Not Available</a></li>
           </ul>
         </li>
       </ul>
