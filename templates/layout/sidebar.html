@@ -34,15 +34,14 @@
           <a href="{% url 'accounts:dashboard'  %}"><i class="fa fa-home"></i> Home</a>
         </li>
         <li>
-          <a><i class="fa fa-edit"></i> User Accounts
-            <span class="fa fa-chevron-down"></span></a>
+          <a><i class="fa fa-edit"></i> User Accounts<span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             <li><a href="{% url 'accounts:list'  %}">All Accounts</a></li>
             <li><a href="">Approved </a></li>
             <li><a href="">Pending</a></li>
             <li><a href="">Not Approved</a></li>
           </ul>
-        </li>
+        </li>-
         <li>
           <a href="javascript:void(0)"><i class="fa fa-map-marker"></i> Manage Locations
             <span class="fa fa-chevron-down"></span></a>
@@ -62,10 +61,10 @@
           <a><i class="fa fa-bug"></i> Projects
             <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
-            <li><a href="{% url 'survey_project:development_info_list'  %}">Finished Wells</a></li>
-            <li><a href="{% url 'survey_project:list'  %}">On-Progress</a></li>
+            <li><a href="{% url 'survey_project:list'  %}">Finished Wells</a></li>
+            <li><a href="{% url 'survey_project:development_info_list'  %}">On-Progress</a></li>
             <li><a href="{% url 'survey_project:development_info_list'  %}">Planned</a></li>
-            <li><a href="{% url 'survey_project:list'  %}">All</a></li>
+            <li><a href="{% url 'survey_project:development_info_list'  %}">All</a></li>
           </ul>
         </li>
         <li>

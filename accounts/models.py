@@ -76,6 +76,7 @@ class Ward(models.Model):
     def __str__(self):
         return self.name
 
+
 class Street(models.Model):
     name = models.CharField(max_length=70, blank=True, null=True)
     ward = models.ForeignKey(Ward, on_delete=models.CASCADE)
@@ -119,9 +120,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_of_birth = models.DateField(blank=True, null=True)
     address = models.CharField(max_length=60, blank=True, null=True)
     region = models.ForeignKey(
-        Region, on_delete=models.CASCADE, blank=True, null=True, related_name='UserRegion')
+        'Region', on_delete=models.CASCADE, related_name='User_Region')
     district = models.ForeignKey(
-        District, on_delete=models.CASCADE, blank=True, null=True, related_name='UserDistrict')
+        'District', related_name='User_District', on_delete=models.CASCADE)
     photo = models.ImageField(upload_to="photo/", blank=True, null=True)
     user_roles = models.IntegerField(default=4, choices=Roles)
     approval_status = models.CharField(
@@ -142,7 +143,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.username
 
     def get_absolute_url(self):
-        return reverse('user_detail', kwargs={'pk': self.pk})
+        return reverse('accounts:user_detail', kwargs={'pk': self.pk})
 
     def get_full_name(self):
         fullname = '%s %s %s' % (

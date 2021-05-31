@@ -29,18 +29,25 @@ class Add_Area(forms.ModelForm):
         model = Street
         fields = '__all__'
 
+
 class UserChangeForm(auth_forms.UserChangeForm):
+    date_of_birth = forms.DateField(
+        widget=forms.TextInput(attrs={'type': 'date'}))
+
     class Meta(auth_forms.UserChangeForm.Meta):
         model = User
-        exclude = ['password']
+        exclude = ['password', 'is_active', 'last_login', 'date_joined']
 
 
 class UserUpdateForm(forms.ModelForm):
-    date_of_birth = forms.DateField(widget=forms.TextInput(attrs={'type':'date'}))
+    date_of_birth = forms.DateField(
+        widget=forms.TextInput(attrs={'type': 'date'}))
+
     class Meta:
         model = User
         fields = '__all__'
-        exclude = ['is_active','is_staff','date_joined','last_login','user_roles','approval_status','password','is_superuser','groups','user_permissions']
+        exclude = ['is_active', 'is_staff', 'date_joined', 'last_login', 'user_roles',
+                   'approval_status', 'password', 'is_superuser', 'groups', 'user_permissions']
 
 
 class Add_UserForm(forms.ModelForm):
@@ -58,7 +65,7 @@ class Add_UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'firstname', 'middlename',
-                  'lastname', 'mobile', 'is_staff','user_roles','password']
+                  'lastname', 'mobile', 'is_staff', 'user_roles', 'password']
 
     def clean_username(self):
         username = self.cleaned_data["username"]
@@ -108,7 +115,9 @@ class UserLoginForm(forms.Form):
 
 
 class ProfileCompleteForm(forms.ModelForm):
-    date_of_birth = forms.DateField(widget=forms.TextInput(attrs={'type':'date'}))
+    date_of_birth = forms.DateField(
+        widget=forms.TextInput(attrs={'type': 'date'}))
+
     class Meta:
         model = User
         fields = [
@@ -119,10 +128,10 @@ class ProfileCompleteForm(forms.ModelForm):
             'photo',
             'Bio']
         labels = {
-            'date_of_birth':'Date of Birth',
-            'address':'Home Address',
-            'region':'Home Region',
-            'district':'Home District',
-            'photo':'User Profile Picture',
-            'Bio':'Bio/ Others'
+            'date_of_birth': 'Date of Birth',
+            'address': 'Home Address',
+            'region': 'Home Region',
+            'district': 'Home District',
+            'photo': 'User Profile Picture',
+            'Bio': 'Bio/ Others'
         }

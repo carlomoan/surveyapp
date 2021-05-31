@@ -49,6 +49,9 @@
             </p>
             {% elif user.is_authenticated and user.is_staff%} Welcome Staff
             {{user.username}}<br />
+            <p>
+              <a href="{% url 'accounts:logout'  %}"><strong>Logout</strong></a>
+            </p>
             {% elif request.user.is_authenticated %} Welcome User
             <p>
               <a href="{% url 'accounts:logout'  %}"><strong>Logout</strong></a>

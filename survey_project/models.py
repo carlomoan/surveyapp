@@ -9,7 +9,7 @@ class SurveyProject(models.Model):
     proid = models.AutoField(primary_key=True)
     author = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='Creator')
-    site_No = models.IntegerField(blank=False, null=True)
+    site_No = models.IntegerField()
     Region = models.ForeignKey(
         'accounts.Region', on_delete=models.CASCADE, related_name='Source_Region')
     District = models.ForeignKey(
@@ -36,18 +36,30 @@ def __str__(self):
 class Store(models.Model):
     item = models.ForeignKey(
         'Equipment', on_delete=models.CASCADE, related_name='Stored_items')
-    amount = models.IntegerField()
+    amount = models.IntegerField(blank=True, null=True)
     buy_time = models.DateTimeField(default=timezone.now)
     uploader = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='Uploaded_by')
 
+
 def __str__(self):
     return self.item.name
 
+
 class Equipment(models.Model):
-    name = models.CharField(max_length=20, blank=False, null=False)
-    size = models.IntegerField()
-    unit_of_size = models.CharField(max_length=20, blank=False, null=False)
+    UNIT_OF_SIZE = [
+        ('Km', 'Kilometre'),
+        ('Hm', 'Hectometre'),
+        ('Dcm', 'Decametre'),
+        ('M', 'Metre'),
+        ('Dc', 'Decimetre'),
+        ('Cm', 'Centimetre'),
+        ('Mm', 'Millimetre')
+    ]
+    name = models.CharField(max_length=40, blank=False, null=False)
+    size = models.IntegerField(blank=True, null=True)
+    unit_of_size = models.CharField(
+        max_length=4, choices=UNIT_OF_SIZE, default=UNIT_OF_SIZE[0][0],)
     material = models.CharField(max_length=20, blank=True, null=True)
     manufacturer = models.CharField(max_length=50, blank=True, null=True)
     price = models.IntegerField(null=True, blank=True)

@@ -140,5 +140,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-LOGIN_URL = 'login'
+LOGIN_URL = 'accounts:login'
 LOGOUT_REDIRECT_URL = 'index'
+
+MAX_UPLOAD_SIZE = "3242880"
