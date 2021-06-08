@@ -4,20 +4,44 @@ from .models import *
 
 
 class Add_ProjectForm(forms.ModelForm):
-    author = forms.CharField(widget = forms.HiddenInput(), required = False)
+    author = forms.CharField(widget=forms.HiddenInput(), required=False)
+
     class Meta:
         model = SurveyProject
         fields = ['site_No', 'Region', 'District', 'Ward', 'Location', 'Current_source', 'Distance_source',
-                  'Affected_people', 'Picture', 'Video', 'Attachment']
+                  'Affected_people']
         labels = {
             'Current_source': 'Current Source of water',
             'Distance_source': 'Distance from source of Water(in Kilometers)',
             'Affected_people': 'Number of Beneficiary',
-            'Picture': 'Current source Picture(jpeg)',
-            'Video': 'Current source Video',
-            'Attachment': 'Application Letter'
         }
-        
+
+
+class ImagesForm(forms.ModelForm):
+    picture = forms.ImageField(
+        widget=forms.ClearableFileInput(attrs={'multiple': True}), label="Current source Picture(jpeg)")
+
+    class Meta:
+        model = Images
+        fields = ('picture',)
+
+
+class VideosForm(forms.ModelForm):
+    video = forms.FileField(
+        widget=forms.ClearableFileInput(attrs={'multiple': True}), label="Current source Video")
+
+    class Meta:
+        model = Videos
+        fields = ('video',)
+
+
+class AttachmentsForm(forms.ModelForm):
+    attachment = forms.FileField(
+        widget=forms.ClearableFileInput(attrs={'multiple': True}), label="Application Letter")
+
+    class Meta:
+        model = Attachments
+        fields = ('attachment',)
 
 
 class WellInfoForm(forms.ModelForm):

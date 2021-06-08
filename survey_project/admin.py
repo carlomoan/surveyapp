@@ -14,7 +14,6 @@ class SurveyProjectAdmin(admin.ModelAdmin):
 admin.site.register(SurveyProject, SurveyProjectAdmin)
 
 
-
 class EquipmentAdmin(admin.ModelAdmin):
     list_display = ['name', 'size', 'unit_of_size', 'material']
 
@@ -43,3 +42,33 @@ class StoreInfoAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Store, StoreInfoAdmin)
+
+
+class ImagesAdmin(admin.ModelAdmin):
+    list_display = ['picture', ]
+
+    class Meta:
+        model = Images
+
+
+admin.site.register(Images, ImagesAdmin)
+
+
+class VideosAdmin(admin.ModelAdmin):
+    list_display = ['video', ]
+
+    class Meta:
+        model = Videos
+
+
+admin.site.register(Videos, VideosAdmin)
+
+
+class AttachmentsAdmin(admin.ModelAdmin):
+    list_display = ['attachment', ]
+
+    class Meta:
+        model = Attachments
+
+
+admin.site.register(Attachments, AttachmentsAdmin)

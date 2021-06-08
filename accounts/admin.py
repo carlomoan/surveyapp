@@ -6,7 +6,7 @@ from .models import *
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ['username', 'firstname',
-                    'middlename', 'lastname', 'mobile','user_roles']
+                    'middlename', 'lastname', 'mobile', 'user_roles']
 
     class Meta:
         model = User

@@ -82,7 +82,7 @@ def profile_complete(request):
     return render(request, 'accounts/profile_complete.html', ctx)
 
 
-@method_decorator(login_required, name='dispatch')
+@login_required
 def user_approval(request, pk):
     user = User.objects.get(pk=pk)
     user.approval_status = 'a'

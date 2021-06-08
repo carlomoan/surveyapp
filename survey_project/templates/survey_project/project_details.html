@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title> Equipment Details</title>
+{% endblock title %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row"></div>
+    <br />
+    <div class="row">
+        <div class="col-md-1 col-xs-1 col-sm-1">
+        </div>
+        <div class="col-md-8 col-xs-8 col-sm-8">
+            <p class="h2">
+                {{object.author}}
+            </p>
+        </div>
+        <div class="col-md-1 col-xs-1 col-sm-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-1 col-xs-1 col-sm-1"></div>
+        <div class="col-md-10 col-xs-10 col-sm-10">
+            {{object.site_no}}
+        </div>
+        <div class="col-md-1 col-xs-1 col-sm-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-1 col-xs-1 col-sm-1"></div>
+        <div class="col-md-10 col-xs-10 col-sm-10">
+            {{object.Region}} {{object.District}}
+        </div>
+        <div class="col-md-1 col-xs-1 col-sm-1"></div>
+    </div>
+</div>
+{% endblock %}

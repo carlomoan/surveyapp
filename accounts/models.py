@@ -120,9 +120,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_of_birth = models.DateField(blank=True, null=True)
     address = models.CharField(max_length=60, blank=True, null=True)
     region = models.ForeignKey(
-        'Region', on_delete=models.CASCADE, related_name='User_Region')
+        'Region', on_delete=models.CASCADE, related_name='User_Region', blank=True, null=True)
     district = models.ForeignKey(
-        'District', related_name='User_District', on_delete=models.CASCADE)
+        'District', related_name='User_District', on_delete=models.CASCADE, blank=True, null=True)
     photo = models.ImageField(upload_to="photo/", blank=True, null=True)
     user_roles = models.IntegerField(default=4, choices=Roles)
     approval_status = models.CharField(
