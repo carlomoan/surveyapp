@@ -48,8 +48,6 @@
           <ul class="nav child_menu">
             <li><a href="{% url 'accounts:region_list'  %}">Regions</a></li>
             <li><a href="{% url 'accounts:district_list'  %}">Districts </a></li>
-            <li><a href="{% url 'accounts:ward_list'  %}">Wards</a></li>
-            <li><a href="{% url 'accounts:street_list'  %}">Streets</a></li>
           </ul>
         </li>
       </ul>
@@ -71,8 +69,8 @@
           <a><i class="fa fa-bug"></i> Store Info
             <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
-            <li><a href="{% url 'survey_project:store_list'  %}">Stored Equipments</a></li>
-            <li><a href="projects.html">Not Available</a></li>
+            <li><a href="{% url 'survey_project:store_list'  %}">Current Status</a></li>
+            <li><a href="{% url 'survey_project:equipment_list'  %}">Equipments List</a></li>
           </ul>
         </li>
       </ul>

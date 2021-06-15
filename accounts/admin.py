@@ -26,7 +26,7 @@ admin.site.register(Region, RegionAdmin)
 
 
 class DistrictAdmin(admin.ModelAdmin):
-    list_display = ['region', 'postcode', 'name']
+    list_display = ['name', 'region', 'postcode']
 
     class Meta:
         model = District

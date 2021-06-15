@@ -34,19 +34,5 @@ urlpatterns = [
     path('district/delete/<int:pk>',
          views.DistrictDeleteView.as_view(), name='delete_district'),
 
-    path('ward/add', views.WardCreateView.as_view(), name='add_ward'),
-    path('ward/list', views.Ward_List.as_view(), name='ward_list'),
-    path('ward/update/<int:pk>', views.WardUpdateView.as_view(), name='update_ward'),
-    path('ward/delete/<int:pk>', views.WardDeleteView.as_view(), name='delete_ward'),
-
-    path('street/add', views.StreetCreateView.as_view(), name='add_street'),
-    path('street/list', views.Street_List.as_view(), name='street_list'),
-    path('street/update/<int:pk>',
-         views.StreetUpdateView.as_view(), name='update_street'),
-    path('street/delete/<int:pk>',
-         views.StreetDeleteView.as_view(), name='delete_street'),
-
-    path('ajax/district/<int:pk>', views.districts, name='district'),
-
 
 ]

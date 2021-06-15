@@ -68,13 +68,14 @@ class EquipmentForm(forms.ModelForm):
 
 
 class StoreForm(forms.ModelForm):
+    uploader = forms.FileField(
+        widget=forms.ClearableFileInput(attrs={'multiple': True}), label="Application Letter")
+
     class Meta:
         model = Store
-        fields = ['item', 'amount', 'buy_time',
-                  'uploader']
+        fields = ['item', 'amount', 'buy_time']
         labels = {
             'item': 'Stored Item',
             'amount': 'Number of units',
-            'buy_time': 'Time',
-            'uploader': 'Issuer'
+            'buy_time': 'Time'
         }

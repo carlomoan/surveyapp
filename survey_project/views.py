@@ -4,6 +4,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView
 from django.http import JsonResponse, HttpResponse
 from django.template.loader import render_to_string
+#from django.contrib.gis.utils import *
 from .forms import *
 from .models import *
 
@@ -70,7 +71,7 @@ def delete_project(request, pk, template_name='survey_project/project_delete.htm
     if request.method == 'POST':
         project.delete()
         return redirect('survey_project:list')
-    return render(request, template_name, {'object': tool})
+    return render(request, template_name, {'object': project})
 
 
 @method_decorator(login_required, name='dispatch')
@@ -85,7 +86,7 @@ class EquipmentListView(ListView):
     template_name = "survey_project/equipment.html"
 
 
-@method_decorator(login_required, name='dispatch')
+@login_required
 def add_equipment(request):
     if request.method == 'POST':
         form = EquipmentForm(request.POST)
@@ -96,7 +97,7 @@ def add_equipment(request):
     return render(request, 'survey_project/equipment_add.html', {'form': form})
 
 
-@method_decorator(login_required, name='dispatch')
+@login_required
 def edit_equipment(request, pk, template_name='survey_project/equipment_edit.html'):
     tool = get_object_or_404(Equipment, pk=pk)
     form = EquipmentForm(request.POST or None, instance=tool)
@@ -106,7 +107,7 @@ def edit_equipment(request, pk, template_name='survey_project/equipment_edit.htm
     return render(request, template_name, {'form': form})
 
 
-@method_decorator(login_required, name='dispatch')
+@login_required
 def delete_equipment(request, pk, template_name='survey_project/equipment_delete.html'):
     tool = get_object_or_404(Equipment, pk=pk)
     if request.method == 'POST':
@@ -127,18 +128,19 @@ class StoreListView(ListView):
     template_name = "survey_project/store.html"
 
 
-@method_decorator(login_required, name='dispatch')
+@login_required
 def add_store(request):
     if request.method == 'POST':
         form = StoreForm(request.POST)
         if form.is_valid():
+            form.author = request.user
             form.save()
             return redirect('survey_project:store_list')
     form = StoreForm()
     return render(request, 'survey_project/store_add.html', {'form': form})
 
 
-@method_decorator(login_required, name='dispatch')
+@login_required
 def edit_store(request, pk, template_name='survey_project/edit_store.html'):
     item = get_object_or_404(Store, pk=pk)
     form = StoreForm(request.POST or None, instance=item)
@@ -148,7 +150,7 @@ def edit_store(request, pk, template_name='survey_project/edit_store.html'):
     return render(request, template_name, {'form': form})
 
 
-@method_decorator(login_required, name='dispatch')
+@login_required
 def delete_store(request, pk, template_name='survey_project/delete_store.html'):
     item = get_object_or_404(Store, pk=pk)
     if request.method == 'POST':
@@ -169,18 +171,23 @@ class WellsListView(ListView):
     template_name = "survey_project/wells.html"
 
 
-@method_decorator(login_required, name='dispatch')
-def add_well(request):
+@login_required
+def add_well(request, pk):
+    project_no = get_object_or_404(SurveyProject, pk=pk)
     if request.method == 'POST':
         form = WellInfoForm(request.POST)
         if form.is_valid():
-            form.save()
+            new_well = form.save(commit=False)
+            #new_well.site = request.session.get('site_no')
+            new_well.save
             return redirect('survey_project:development_info_list')
     form = WellInfoForm()
+    # request.session['site_no'] = SurveyProject.site_No   Start session with Site number as value
+    # request.session.get('site_no')
     return render(request, 'survey_project/well_add.html', {'form': form})
 
 
-@method_decorator(login_required, name='dispatch')
+@login_required
 def edit_well(request, pk, template_name='survey_project/well_edit.html'):
     well = get_object_or_404(WellInfo, pk=pk)
     form = WellInfoForm(request.POST or None, instance=well)
@@ -190,11 +197,11 @@ def edit_well(request, pk, template_name='survey_project/well_edit.html'):
     return render(request, template_name, {'form': form})
 
 
-@method_decorator(login_required, name='dispatch')
+@login_required
 def delete_well(request, pk, template_name='survey_project/well_delete.html'):
     well = get_object_or_404(WellInfo, pk=pk)
     if request.method == 'POST':
-        item.delete()
+        well.delete()
         return redirect('survey_project:development_info_list')
     return render(request, template_name, {'object': well})
 

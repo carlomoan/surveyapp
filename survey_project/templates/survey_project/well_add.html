@@ -1,9 +1,9 @@
-{% extends 'base.html' %} 
-{% load static %} 
-{% load crispy_forms_tags %} 
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
 {% block title %}
 <title>Development Information form</title>
-{% endblock title %} 
+{% endblock title %}
 {% block stylesheets %}
 {{ block.super }}
 {% endblock stylesheets %}
@@ -48,19 +48,15 @@
         </div>
         <div class="x_content">
           <br />
-        <form
-          action="{{ request.path }}"
-          method="post"
-          enctype="multipart/form-data"
-        >
-          {% csrf_token %} 
-          {{ form|crispy }}
-          <div class="ln_solid"></div>
+          <form action="{{ request.path }}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="ln_solid"></div>
             <div class="item form-group">
               <div class="col-md-6 col-sm-6 offset-md-3">
                 <button class="btn btn-primary" type="button">Cancel</button>
                 <button class="btn btn-primary" type="reset">Reset</button>
-                <button type="submit" class="btn btn-success">Save Development Info</button>
+                <button type="submit" class="btn btn-success">Submit</button>
               </div>
             </div>
           </form>

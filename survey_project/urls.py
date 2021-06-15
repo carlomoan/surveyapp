@@ -4,7 +4,7 @@ from . import views
 app_name = 'survey_project'
 
 urlpatterns = [
-    path('', views.projects, name='list'),
+    path('project/', views.projects, name='list'),
     path('project/create/', views.project_create, name='project_add'),
     path('project/edit/<int:pk>/', views.edit_project, name='project_edit'),
     path('project/<int:pk>/', views.ProjectDetailView.as_view(),

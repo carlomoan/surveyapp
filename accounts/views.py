@@ -147,7 +147,7 @@ class UpdateUserView(UpdateView):
         return super().form_valid(form)
 
 
-@method_decorator(login_required, name='dispatch')
+@login_required
 def delete_user(request, pk, template_name='accounts/user_list.html'):
     user = get_object_or_404(User, pk=pk)
     if request.method == 'POST':
@@ -156,12 +156,13 @@ def delete_user(request, pk, template_name='accounts/user_list.html'):
     return render(request, template_name, {'object': user})
 
 
+@method_decorator(login_required, name='dispatch')
 class UserDetailView(DetailView):
     model = User
     template_name = "accounts/user_detail.html"
 
 
-@method_decorator(login_required, name='dispatch')
+@login_required
 def user_form(request):
     form = Add_UserForm(request.POST or None)
     users = User.objects.all()
@@ -189,6 +190,7 @@ class Region_List(ListView):
 
 
 # createview class to add new stock, mixin used to display message
+@method_decorator(login_required, name='dispatch')
 class RegionCreateView(SuccessMessageMixin, CreateView):
     # setting 'Stock' model as model
     model = Region
@@ -210,6 +212,7 @@ class RegionCreateView(SuccessMessageMixin, CreateView):
 
 
 # updateview class to edit stock, mixin used to display message
+@method_decorator(login_required, name='dispatch')
 class RegionUpdateView(SuccessMessageMixin, UpdateView):
     # setting 'Stock' model as model
     model = Region
@@ -232,6 +235,7 @@ class RegionUpdateView(SuccessMessageMixin, UpdateView):
 
 
 # view class to delete stock
+@method_decorator(login_required, name='dispatch')
 class RegionDeleteView(View):
     # 'delete_stock.html' used as the template
     template_name = "accounts/dlt_region.html"
@@ -250,6 +254,7 @@ class RegionDeleteView(View):
         return redirect('region_list')
 
 
+@method_decorator(login_required, name='dispatch')
 class District_List(ListView):
     model = District
     template_name = "accounts/districts.html"
@@ -259,6 +264,7 @@ class District_List(ListView):
 
 
 # createview class to add new stock, mixin used to display message
+@method_decorator(login_required, name='dispatch')
 class DistrictCreateView(SuccessMessageMixin, CreateView):
     # setting 'Stock' model as model
     model = District
@@ -280,6 +286,7 @@ class DistrictCreateView(SuccessMessageMixin, CreateView):
 
 
 # updateview class to edit stock, mixin used to display message
+@method_decorator(login_required, name='dispatch')
 class DistrictUpdateView(SuccessMessageMixin, UpdateView):
     # setting 'Stock' model as model
     model = District
@@ -302,6 +309,7 @@ class DistrictUpdateView(SuccessMessageMixin, UpdateView):
 
 
 # view class to delete stock
+@method_decorator(login_required, name='dispatch')
 class DistrictDeleteView(View):
     # 'delete_stock.html' used as the template
     template_name = "accounts/dlt_district.html"
@@ -320,6 +328,7 @@ class DistrictDeleteView(View):
         return redirect('district_list')
 
 
+@method_decorator(login_required, name='dispatch')
 class Ward_List(ListView):
     model = Ward
     template_name = "accounts/wards.html"
@@ -329,6 +338,7 @@ class Ward_List(ListView):
 
 
 # createview class to add new stock, mixin used to display message
+@method_decorator(login_required, name='dispatch')
 class WardCreateView(SuccessMessageMixin, CreateView):
     # setting 'Stock' model as model
     model = Ward
@@ -350,6 +360,7 @@ class WardCreateView(SuccessMessageMixin, CreateView):
 
 
 # updateview class to edit stock, mixin used to display message
+@method_decorator(login_required, name='dispatch')
 class WardUpdateView(SuccessMessageMixin, UpdateView):
     # setting 'Stock' model as model
     model = Ward
@@ -372,6 +383,7 @@ class WardUpdateView(SuccessMessageMixin, UpdateView):
 
 
 # view class to delete stock
+@method_decorator(login_required, name='dispatch')
 class WardDeleteView(View):
     # 'delete_stock.html' used as the template
     template_name = "accounts/dlt_ward.html"
@@ -390,89 +402,6 @@ class WardDeleteView(View):
         return redirect('ward_list')
 
 
-class Street_List(ListView):
-    model = Street
-    template_name = "accounts/streets.html"
-
-    def get_queryset(self):
-        return Street.objects.all()
-
-
-# createview class to add new stock, mixin used to display message
-class StreetCreateView(SuccessMessageMixin, CreateView):
-    # setting 'Stock' model as model
-    model = Street
-    # setting 'StockForm' form as form
-    form_class = Add_Area
-    # 'edit_stock.html' used as the template
-    template_name = "accounts/street_ward.html"
-    # redirects to 'inventory' page in the url after submitting the form
-    success_url = 'accounts/street.html'
-    # displays message when form is submitted
-    success_message = "Street has been created successfully"
-
-    # used to send additional context
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["title"] = 'New Street'
-        context["savebtn"] = 'Add to Street'
-        return context
-
-
-# updateview class to edit stock, mixin used to display message
-class StreetUpdateView(SuccessMessageMixin, UpdateView):
-    # setting 'Stock' model as model
-    model = Street
-    # setting 'StockForm' form as form
-    form_class = Add_Area
-    # 'edit_stock.html' used as the template
-    template_name = "accounts/add_street.html"
-    # redirects to 'inventory' page in the url after submitting the form
-    success_url = "accounts/streets.html"
-    # displays message when form is submitted
-    success_message = "Street has been updated successfully"
-
-    # used to send additional context
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["title"] = 'Edit Street'
-        context["savebtn"] = 'Update Street'
-        context["delbtn"] = 'Delete Street'
-        return context
-
-
-# view class to delete stock
-class StreetDeleteView(View):
-    # 'delete_stock.html' used as the template
-    template_name = "accounts/dlt_street.html"
-    # displays message when form is submitted
-    success_message = "Street has been deleted successfully"
-
-    def get(self, request, pk):
-        street = get_object_or_404(Street, pk=pk)
-        return render(request, self.template_name, {'object': street})
-
-    def post(self, request, pk):
-        street = get_object_or_404(street, pk=pk)
-        street.is_deleted = True
-        street.save()
-        messages.success(request, self.success_message)
-        return redirect('street_list')
-
-
 def index(request):
     context = {'a': 'a'}
     return render(request, 'index.html', context)
-
-
-def districts(request, region_id):
-    opt2_html = ""
-    try:
-        districts = District.objects.get(pk=region_id)
-        region = company.makemodel_set.all()
-        for model in make_models:
-            opt2_html += "<option value='" + \
-                str(model.id)+"'>"+model.model_name+"</option>"
-    except:
-        write_exception("Error in fetching options 2")
-    return HttpResponse(opt2_html)
