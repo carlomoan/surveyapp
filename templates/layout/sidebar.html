@@ -1,7 +1,7 @@
 {% load static %}
 <div class="left_col scroll-view">
   <div class="navbar nav_title" style="border: 0">
-    <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>SDMwells!</span></a>
+    <a href="{% url 'accounts:home'  %}" class="site_title"><i class="fa fa-paw"></i> <span>SDMwells!</span></a>
   </div>
 
   <div class="clearfix"></div>
@@ -30,16 +30,13 @@
     <div class="menu_section">
       <h3>General</h3>
       <ul class="nav side-menu">
-        <li>
-          <a href="{% url 'accounts:dashboard'  %}"><i class="fa fa-home"></i> Home</a>
-        </li>
-        <li>
-          <a><i class="fa fa-edit"></i> User Accounts<span class="fa fa-chevron-down"></span></a>
+        <li><a href="{% url 'accounts:dashboard'  %}"><i class="fa fa-home"></i> Home </a></li>
+        <li><a><i class="fa fa-user"></i> User Accounts<span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             <li><a href="{% url 'accounts:list'  %}">All Accounts</a></li>
-            <li><a href="">Approved </a></li>
-            <li><a href="">Pending</a></li>
-            <li><a href="">Not Approved</a></li>
+            <li><a href="#">Approved </a></li>
+            <li><a href="#">Pending</a></li>
+            <li><a href="#">Not Approved</a></li>
           </ul>
         </li>-
         <li>
@@ -66,7 +63,7 @@
           </ul>
         </li>
         <li>
-          <a><i class="fa fa-bug"></i> Store Info
+          <a><i class="fa fa-plus-square-o"></i> Store Info
             <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             <li><a href="{% url 'survey_project:store_list'  %}">Current Status</a></li>
